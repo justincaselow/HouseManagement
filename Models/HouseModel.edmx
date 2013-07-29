@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="HouseModelStoreContainer">
+    <EntitySet Name="ItemTypes" EntityType="HouseModel.Store.ItemTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People" EntityType="HouseModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ITransactions" EntityType="HouseModel.Store.ITransactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ITransactions_Expense" EntityType="HouseModel.Store.ITransactions_Expense" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ITransactions_Credit" EntityType="HouseModel.Store.ITransactions_Credit" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ITransactionPerson" Association="HouseModel.Store.ITransactionPerson">
+      <End Role="ITransaction" EntitySet="ITransactions" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="ExpenseItemType" Association="HouseModel.Store.ExpenseItemType">
+      <End Role="Expense" EntitySet="ITransactions_Expense" />
+      <End Role="ItemType" EntitySet="ItemTypes" />
+    </AssociationSet>
+    <AssociationSet Name="CreditPerson" Association="HouseModel.Store.CreditPerson">
+      <End Role="Credit" EntitySet="ITransactions_Credit" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expense_inherits_ITransaction" Association="HouseModel.Store.FK_Expense_inherits_ITransaction">
+      <End Role="ITransaction" EntitySet="ITransactions" />
+      <End Role="Expense" EntitySet="ITransactions_Expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Credit_inherits_ITransaction" Association="HouseModel.Store.FK_Credit_inherits_ITransaction">
+      <End Role="ITransaction" EntitySet="ITransactions" />
+      <End Role="Credit" EntitySet="ITransactions_Credit" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ItemTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreditId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ITransactions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GbpAmount" Type="decimal" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="Payer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ITransactions_Expense">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="ItemType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ITransactions_Credit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ITransactionPerson">
+    <End Role="ITransaction" Type="HouseModel.Store.ITransactions" Multiplicity="*" />
+    <End Role="Person" Type="HouseModel.Store.People" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ITransaction">
+        <PropertyRef Name="Payer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExpenseItemType">
+    <End Role="Expense" Type="HouseModel.Store.ITransactions_Expense" Multiplicity="*" />
+    <End Role="ItemType" Type="HouseModel.Store.ItemTypes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="ItemType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CreditPerson">
+    <End Role="Credit" Type="HouseModel.Store.ITransactions_Credit" Multiplicity="1" />
+    <End Role="Person" Type="HouseModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Credit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="CreditId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expense_inherits_ITransaction">
+    <End Role="ITransaction" Type="HouseModel.Store.ITransactions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Expense" Type="HouseModel.Store.ITransactions_Expense" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ITransaction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Credit_inherits_ITransaction">
+    <End Role="ITransaction" Type="HouseModel.Store.ITransactions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Credit" Type="HouseModel.Store.ITransactions_Credit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ITransaction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Credit">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="HouseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" >
+        <EntityContainer Name="HouseModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ItemTypes" EntityType="HouseModel.ItemType" />
+          <EntitySet Name="People" EntityType="HouseModel.Person" />
+          <EntitySet Name="ITransactions" EntityType="HouseModel.ITransaction" />
+          <AssociationSet Name="ITransactionPerson" Association="HouseModel.ITransactionPerson">
+            <End Role="ITransaction" EntitySet="ITransactions" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="ExpenseItemType" Association="HouseModel.ExpenseItemType">
+            <End Role="Expense" EntitySet="ITransactions" />
+            <End Role="ItemType" EntitySet="ItemTypes" />
+          </AssociationSet>
+          <AssociationSet Name="CreditPerson" Association="HouseModel.CreditPerson">
+            <End Role="Credit" EntitySet="ITransactions" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Description" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="ITransactions" Relationship="HouseModel.ITransactionPerson" FromRole="Person" ToRole="ITransaction" />
+        </EntityType>
+        <EntityType Name="Expense" BaseType="HouseModel.ITransaction">
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="Double" Name="Quantity" Nullable="false" />
+          <NavigationProperty Name="ItemType" Relationship="HouseModel.ExpenseItemType" FromRole="Expense" ToRole="ItemType" />
+        </EntityType>
+        <EntityType Name="Credit" BaseType="HouseModel.ITransaction" >
+          <NavigationProperty Name="Payee" Relationship="HouseModel.CreditPerson" FromRole="Credit" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="ITransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="GbpAmount" Nullable="false" />
+          <NavigationProperty Name="Payer" Relationship="HouseModel.ITransactionPerson" FromRole="ITransaction" ToRole="Person" />
+          <Property Type="DateTime" Name="TransactionDate" Nullable="false" />
+        </EntityType>
+        <Association Name="ITransactionPerson">
+          <End Type="HouseModel.ITransaction" Role="ITransaction" Multiplicity="*" />
+          <End Type="HouseModel.Person" Role="Person" Multiplicity="1" />
+        </Association>
+        <Association Name="ExpenseItemType">
+          <End Type="HouseModel.Expense" Role="Expense" Multiplicity="1" />
+          <End Type="HouseModel.ItemType" Role="ItemType" Multiplicity="1" />
+        </Association>
+        <Association Name="CreditPerson">
+          <End Type="HouseModel.Credit" Role="Credit" Multiplicity="1" />
+          <End Type="HouseModel.Person" Role="Person" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HouseModelStoreContainer" CdmEntityContainer="HouseModelContainer">
+    <EntitySetMapping Name="ItemTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(HouseModel.ItemType)">
+        <MappingFragment StoreEntitySet="ItemTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(HouseModel.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ITransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(HouseModel.ITransaction)">
+        <MappingFragment StoreEntitySet="ITransactions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GbpAmount" ColumnName="GbpAmount" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HouseModel.Expense)">
+        <MappingFragment StoreEntitySet="ITransactions_Expense">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HouseModel.Credit)">
+        <MappingFragment StoreEntitySet="ITransactions_Credit">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ITransactionPerson" TypeName="HouseModel.ITransactionPerson" StoreEntitySet="ITransactions">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Payer_Id" />
+      </EndProperty>
+      <EndProperty Name="ITransaction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ExpenseItemType" TypeName="HouseModel.ExpenseItemType" StoreEntitySet="ITransactions_Expense">
+      <EndProperty Name="ItemType">
+        <ScalarProperty Name="Id" ColumnName="ItemType_Id" />
+      </EndProperty>
+      <EndProperty Name="Expense">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
