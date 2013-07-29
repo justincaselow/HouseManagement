@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ExpensesViewModel.cs" />
     <Compile Include="Models\HouseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -241,6 +242,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Models\HouseModel.Data.sql" />
     <Content Include="Models\HouseModel.edmx.sql" />
     <EntityDeploy Include="Models\HouseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

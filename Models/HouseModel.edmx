@@ -45,7 +45,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CreditId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ITransactions">
     <Key>
@@ -61,7 +60,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Cost" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="float" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="ItemType_Id" Type="int" Nullable="false" />
@@ -71,6 +69,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Payee_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ITransactionPerson">
     <End Role="ITransaction" Type="HouseModel.Store.ITransactions" Multiplicity="*" />
@@ -97,14 +96,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="CreditPerson">
-    <End Role="Credit" Type="HouseModel.Store.ITransactions_Credit" Multiplicity="1" />
-    <End Role="Person" Type="HouseModel.Store.People" Multiplicity="*" />
+    <End Role="Credit" Type="HouseModel.Store.ITransactions_Credit" Multiplicity="*" />
+    <End Role="Person" Type="HouseModel.Store.People" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Credit">
+      <Principal Role="Person">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Person">
-        <PropertyRef Name="CreditId" />
+      <Dependent Role="Credit">
+        <PropertyRef Name="Payee_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -198,8 +197,8 @@
           <End Type="HouseModel.ItemType" Role="ItemType" Multiplicity="1" />
         </Association>
         <Association Name="CreditPerson">
-          <End Type="HouseModel.Credit" Role="Credit" Multiplicity="1" />
-          <End Type="HouseModel.Person" Role="Person" Multiplicity="*" />
+          <End Type="HouseModel.Credit" Role="Credit" Multiplicity="*" />
+          <End Type="HouseModel.Person" Role="Person" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -257,6 +256,14 @@
         <ScalarProperty Name="Id" ColumnName="ItemType_Id" />
       </EndProperty>
       <EndProperty Name="Expense">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CreditPerson" TypeName="HouseModel.CreditPerson" StoreEntitySet="ITransactions_Credit">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Payee_Id" />
+      </EndProperty>
+      <EndProperty Name="Credit">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 07/28/2013 16:41:23
--- Generated from EDMX file: C:\Users\Justin\Google Drive\Programming\Visual Studio\HouseManagement\Models\HouseModel.edmx
+-- Date Created: 07/29/2013 20:15:32
+-- Generated from EDMX file: D:\Documents\git\HouseManagement\Models\HouseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -19,6 +19,12 @@ GO
 
 IF OBJECT_ID(N'[dbo].[FK_ITransactionPerson]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ITransactions] DROP CONSTRAINT [FK_ITransactionPerson];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ExpenseItemType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ITransactions_Expense] DROP CONSTRAINT [FK_ExpenseItemType];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CreditPerson]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ITransactions_Credit] DROP CONSTRAINT [FK_CreditPerson];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Expense_inherits_ITransaction]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ITransactions_Expense] DROP CONSTRAINT [FK_Expense_inherits_ITransaction];
@@ -61,8 +67,7 @@ GO
 -- Creating table 'People'
 CREATE TABLE [dbo].[People] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [CreditId] int  NOT NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -78,7 +83,6 @@ GO
 -- Creating table 'ITransactions_Expense'
 CREATE TABLE [dbo].[ITransactions_Expense] (
     [Description] nvarchar(max)  NOT NULL,
-    [Cost] nvarchar(max)  NOT NULL,
     [Quantity] float  NOT NULL,
     [Id] int  NOT NULL,
     [ItemType_Id] int  NOT NULL
@@ -87,7 +91,8 @@ GO
 
 -- Creating table 'ITransactions_Credit'
 CREATE TABLE [dbo].[ITransactions_Credit] (
-    [Id] int  NOT NULL
+    [Id] int  NOT NULL,
+    [Payee_Id] int  NOT NULL
 );
 GO
 
@@ -157,18 +162,18 @@ ON [dbo].[ITransactions_Expense]
     ([ItemType_Id]);
 GO
 
--- Creating foreign key on [CreditId] in table 'People'
-ALTER TABLE [dbo].[People]
+-- Creating foreign key on [Payee_Id] in table 'ITransactions_Credit'
+ALTER TABLE [dbo].[ITransactions_Credit]
 ADD CONSTRAINT [FK_CreditPerson]
-    FOREIGN KEY ([CreditId])
-    REFERENCES [dbo].[ITransactions_Credit]
+    FOREIGN KEY ([Payee_Id])
+    REFERENCES [dbo].[People]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CreditPerson'
 CREATE INDEX [IX_FK_CreditPerson]
-ON [dbo].[People]
-    ([CreditId]);
+ON [dbo].[ITransactions_Credit]
+    ([Payee_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'ITransactions_Expense'
