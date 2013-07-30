@@ -177,7 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\ExpensesViewModel.cs" />
+    <Compile Include="ViewModels\ExpensesViewModel.cs" />
     <Compile Include="Models\HouseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

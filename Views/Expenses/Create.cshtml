@@ -1,4 +1,4 @@
-﻿@model HouseManagement.Models.ExpensesViewModel
+﻿@model HouseManagement.ViewModels.ExpensesViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
 
     <fieldset>
         <legend>Expense</legend>
-
+        
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
@@ -19,7 +19,7 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-
+        
         <div class="editor-label">
             @Html.LabelFor(model => model.Quantity)
         </div>
@@ -45,11 +45,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ItemType)
+            @Html.LabelFor(model => model.ItemTypes)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.ItemType, Model.ItemTypes)
-            @Html.ValidationMessageFor(model => model.ItemType)
+            @Html.DropDownList("Item Type", new SelectList(Model.ItemTypes, "Id", "Description"))
+            @Html.ValidationMessageFor(model => model.ItemTypes)
         </div>
         <p>
             <input type="submit" value="Create" />

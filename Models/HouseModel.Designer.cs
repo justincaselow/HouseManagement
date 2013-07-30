@@ -20,7 +20,7 @@ using System.Xml.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("HouseModel", "ITransactionPerson", "ITransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HouseManagement.Models.ITransaction), "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HouseManagement.Models.Person))]
-[assembly: EdmRelationshipAttribute("HouseModel", "ExpenseItemType", "Expense", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HouseManagement.Models.Expense), "ItemType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HouseManagement.Models.ItemType))]
+[assembly: EdmRelationshipAttribute("HouseModel", "ExpenseItemType", "Expense", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HouseManagement.Models.Expense), "ItemType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HouseManagement.Models.ItemType))]
 [assembly: EdmRelationshipAttribute("HouseModel", "CreditPerson", "Credit", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HouseManagement.Models.Credit), "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HouseManagement.Models.Person))]
 
 #endregion

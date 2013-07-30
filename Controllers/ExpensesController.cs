@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using HouseManagement.Models;
 using System.Data.Objects;
+using HouseManagement.ViewModels;
 
 namespace HouseManagement.Controllers
 {
@@ -48,7 +49,7 @@ namespace HouseManagement.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new ExpensesViewModel());
         }
 
         //

@@ -193,7 +193,7 @@
           <End Type="HouseModel.Person" Role="Person" Multiplicity="1" />
         </Association>
         <Association Name="ExpenseItemType">
-          <End Type="HouseModel.Expense" Role="Expense" Multiplicity="1" />
+          <End Type="HouseModel.Expense" Role="Expense" Multiplicity="*" />
           <End Type="HouseModel.ItemType" Role="ItemType" Multiplicity="1" />
         </Association>
         <Association Name="CreditPerson">
