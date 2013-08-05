@@ -184,7 +184,6 @@ namespace HouseManagement.Models
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -260,7 +259,7 @@ namespace HouseManagement.Models
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -277,7 +276,7 @@ namespace HouseManagement.Models
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, false);
+                _Description = StructuralObject.SetValidValue(value, false, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -301,7 +300,7 @@ namespace HouseManagement.Models
             {
                 OnQuantityChanging(value);
                 ReportPropertyChanging("Quantity");
-                _Quantity = StructuralObject.SetValidValue(value);
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
                 ReportPropertyChanged("Quantity");
                 OnQuantityChanged();
             }
@@ -312,7 +311,6 @@ namespace HouseManagement.Models
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -382,7 +380,7 @@ namespace HouseManagement.Models
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -401,7 +399,7 @@ namespace HouseManagement.Models
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -426,7 +424,7 @@ namespace HouseManagement.Models
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, false);
+                _Description = StructuralObject.SetValidValue(value, false, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -437,7 +435,6 @@ namespace HouseManagement.Models
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -469,7 +466,7 @@ namespace HouseManagement.Models
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -488,7 +485,7 @@ namespace HouseManagement.Models
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -513,7 +510,7 @@ namespace HouseManagement.Models
             {
                 OnGbpAmountChanging(value);
                 ReportPropertyChanging("GbpAmount");
-                _GbpAmount = StructuralObject.SetValidValue(value);
+                _GbpAmount = StructuralObject.SetValidValue(value, "GbpAmount");
                 ReportPropertyChanged("GbpAmount");
                 OnGbpAmountChanged();
             }
@@ -537,7 +534,7 @@ namespace HouseManagement.Models
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -548,7 +545,6 @@ namespace HouseManagement.Models
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -618,7 +614,7 @@ namespace HouseManagement.Models
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -637,7 +633,7 @@ namespace HouseManagement.Models
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -662,7 +658,7 @@ namespace HouseManagement.Models
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -673,7 +669,6 @@ namespace HouseManagement.Models
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -704,5 +699,4 @@ namespace HouseManagement.Models
 
     #endregion
 
-    
 }

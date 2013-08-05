@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="HouseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="HouseModelStoreContainer">
-    <EntitySet Name="ItemTypes" EntityType="HouseModel.Store.ItemTypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="People" EntityType="HouseModel.Store.People" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ITransactions" EntityType="HouseModel.Store.ITransactions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ITransactions_Expense" EntityType="HouseModel.Store.ITransactions_Expense" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ITransactions_Credit" EntityType="HouseModel.Store.ITransactions_Credit" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemTypes" EntityType="HouseModel.Store.ItemTypes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="People" EntityType="HouseModel.Store.People" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="ITransactions" EntityType="HouseModel.Store.ITransactions" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="ITransactions_Expense" EntityType="HouseModel.Store.ITransactions_Expense" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="ITransactions_Credit" EntityType="HouseModel.Store.ITransactions_Credit" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
     <AssociationSet Name="ITransactionPerson" Association="HouseModel.Store.ITransactionPerson">
       <End Role="ITransaction" EntitySet="ITransactions" />
       <End Role="Person" EntitySet="People" />
@@ -138,8 +138,8 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="HouseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" >
-        <EntityContainer Name="HouseModelContainer" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="HouseModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HouseModelContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="ItemTypes" EntityType="HouseModel.ItemType" />
           <EntitySet Name="People" EntityType="HouseModel.Person" />
           <EntitySet Name="ITransactions" EntityType="HouseModel.ITransaction" />
@@ -160,14 +160,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Description" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" />
           <NavigationProperty Name="ITransactions" Relationship="HouseModel.ITransactionPerson" FromRole="Person" ToRole="ITransaction" />
         </EntityType>
@@ -176,14 +176,14 @@
           <Property Type="Double" Name="Quantity" Nullable="false" />
           <NavigationProperty Name="ItemType" Relationship="HouseModel.ExpenseItemType" FromRole="Expense" ToRole="ItemType" />
         </EntityType>
-        <EntityType Name="Credit" BaseType="HouseModel.ITransaction" >
+        <EntityType Name="Credit" BaseType="HouseModel.ITransaction">
           <NavigationProperty Name="Payee" Relationship="HouseModel.CreditPerson" FromRole="Credit" ToRole="Person" />
         </EntityType>
         <EntityType Name="ITransaction">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Decimal" Name="GbpAmount" Nullable="false" />
           <NavigationProperty Name="Payer" Relationship="HouseModel.ITransactionPerson" FromRole="ITransaction" ToRole="Person" />
           <Property Type="DateTime" Name="TransactionDate" Nullable="false" />
@@ -204,7 +204,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HouseModelStoreContainer" CdmEntityContainer="HouseModelContainer">
     <EntitySetMapping Name="ItemTypes">
       <EntityTypeMapping TypeName="IsTypeOf(HouseModel.ItemType)">
@@ -271,14 +271,14 @@
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <edmx:Designer>
     <edmx:Connection>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </edmx:Connection>
     <edmx:Options>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
       </DesignerInfoPropertySet>
