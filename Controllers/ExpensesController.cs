@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using HouseManagement.Models;
 using System.Data.Objects;
 using HouseManagement.ViewModels;
+using AutoMapper;
 
 namespace HouseManagement.Controllers
 {
@@ -56,10 +57,15 @@ namespace HouseManagement.Controllers
         // POST: /Expenses/Create
 
         [HttpPost]
-        public ActionResult Create(Expense expense)
+        public ActionResult Create(ExpensesViewModel expenseViewModel)
         {
+            Expense expense = null;
+
             if (ModelState.IsValid)
             {
+                Mapper.CreateMap<ExpensesViewModel, Expense>();
+
+                expense = Mapper.Map<ExpensesViewModel, Expense>(expenseViewModel);
                 db.ITransactions.AddObject(expense);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -6,6 +6,13 @@
 -- Generated from EDMX file: D:\Documents\git\HouseManagement\Models\HouseModel.edmx
 -- --------------------------------------------------
 
+USE [master];
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'HouseManagement')
+	CREATE DATABASE HouseManagement
+	GO
+
 SET QUOTED_IDENTIFIER OFF;
 GO
 USE [HouseManagement];

@@ -24,7 +24,7 @@ namespace HouseManagement.ViewModels
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
 
-        public Person Payee
+        public Person Payer
         {
             get
             {
