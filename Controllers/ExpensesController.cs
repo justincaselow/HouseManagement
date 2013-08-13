@@ -50,7 +50,13 @@ namespace HouseManagement.Controllers
 
         public ActionResult Create()
         {
-            return View(new ExpensesViewModel());
+            return View(new ExpensesViewModel()
+                {
+                    Description = "Persil washing up powder",
+                    GbpAmount = 9.99M,
+                    TransactionDate = new DateTime(2013,7,15),
+                    Quantity = 1
+                });
         }
 
         //
@@ -64,7 +70,6 @@ namespace HouseManagement.Controllers
             if (ModelState.IsValid)
             {
                 Mapper.CreateMap<ExpensesViewModel, Expense>();
-
                 expense = Mapper.Map<ExpensesViewModel, Expense>(expenseViewModel);
                 db.ITransactions.AddObject(expense);
                 db.SaveChanges();

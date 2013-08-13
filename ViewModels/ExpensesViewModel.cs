@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Objects;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -9,26 +10,35 @@ namespace HouseManagement.ViewModels
 {
     public class ExpensesViewModel
     {
-        private HouseModelContainer context = new HouseModelContainer();
+        private static HouseModelContainer context = new HouseModelContainer();
 
-        public ObjectSet<ItemType> ItemTypes
-        {
-            get
-            {
-                return context.ItemTypes;
-            }
-        }
-
+        public int ItemTypeId { get; set; }
         public string Description { get; set; }
         public decimal GbpAmount { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
 
+        public IQueryable<ItemType> ItemTypes
+        {
+            get
+            {
+                return context.ItemTypes.AsNoTracking();
+            }
+        }
+
+        public ItemType ItemType
+        {
+            get
+            {
+                return this.ItemTypes.AsNoTracking().SingleOrDefault(p => p.Id == this.ItemTypeId);
+            }
+        }
+
         public Person Payer
         {
             get
             {
-                return context.People.Single(p => p.Name == "Justin Low");
+                return context.People.AsNoTracking().Single(p => p.Name == "Justin Low");
             }
         }
     }

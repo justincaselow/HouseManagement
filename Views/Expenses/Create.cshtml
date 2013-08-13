@@ -48,7 +48,7 @@
             @Html.LabelFor(model => model.ItemTypes)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("Item Type", new SelectList(Model.ItemTypes, "Id", "Description"))
+            @Html.DropDownListFor(model => model.ItemTypeId, new SelectList(Model.ItemTypes, "Id", "Description"))
             @Html.ValidationMessageFor(model => model.ItemTypes)
         </div>
         <p>
